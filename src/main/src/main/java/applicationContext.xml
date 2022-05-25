@@ -34,7 +34,13 @@
         <property name="delegate" ref="nullLockProvider"/>
     </bean>
     <bean id="lockProviderInitializer" class="org.geoserver.config.LockProviderInitializer"/>
-    
+
+    <bean id="keyStoreProvider" class="org.geoserver.security.KeyStoreProvider">
+        <property name="keyStoreType" value="BCFKS"/>
+        <property name="keyStoreFilename" value="geoserver.bcfks"/>
+    </bean>
+
+
     <!-- used by alternative resource stores -->
     <bean id="resourceNotificationDispatcher" class="org.geoserver.platform.resource.SimpleResourceNotificationDispatcher"/>
     
