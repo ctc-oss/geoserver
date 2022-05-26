@@ -248,44 +248,4 @@ public class LockingKeyStoreProvider implements KeyStoreProvider {
             writeUnLock();
         }
     }
-
-    @Override
-    public String getKeyStoreFilename() {
-        writeLock();
-        try {
-            return provider.getKeyStoreFilename();
-        } finally {
-            writeUnLock();
-        }
-    }
-
-    @Override
-    public void setKeyStoreFilename(String keyStoreFilename) {
-        writeLock();
-        try {
-            provider.setKeyStoreFilename(keyStoreFilename);
-        } finally {
-            writeUnLock();
-        }
-    }
-
-    @Override
-    public String getKeyStoreType() {
-        writeLock();
-        try {
-            return provider.getKeyStoreType();
-        } finally {
-            writeUnLock();
-        }
-    }
-
-    @Override
-    public void setKeyStoreType(String keyStoreType) {
-        writeLock();
-        try {
-            provider.setKeyStoreType(keyStoreType);
-        } finally {
-            writeUnLock();
-        }
-    }
 }

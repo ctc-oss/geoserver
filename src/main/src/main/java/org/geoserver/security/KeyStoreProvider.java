@@ -15,18 +15,6 @@ import org.geoserver.platform.resource.Resource;
 
 public interface KeyStoreProvider {
 
-    /** Gets the key store type. */
-    String getKeyStoreType();
-
-    /** Sets the key store type. */
-    void setKeyStoreType(String keyStoreType);
-
-    /** Gets the key store filename. */
-    String getKeyStoreFilename();
-
-    /** Sets the key store filename. */
-    void setKeyStoreFilename(String filename);
-
     /** Sets the security manager facade. */
     void setSecurityManager(GeoServerSecurityManager securityManager);
 

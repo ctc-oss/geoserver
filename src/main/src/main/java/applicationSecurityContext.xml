@@ -77,6 +77,7 @@
   <bean id="keyStoreProvider" class="org.geoserver.security.KeyStoreProviderImpl">
     <property name="keyStoreType" value="BCFKS"/>
     <property name="keyStoreFilename" value="geoserver.bcfks"/>
+    <property name="secretKeyAlgorithm" value="AES"/>
   </bean>
    
    

@@ -39,8 +39,6 @@ import org.springframework.beans.factory.BeanNameAware;
 public class KeyStoreProviderImpl implements BeanNameAware, KeyStoreProvider {
 
     public static final String DEFAULT_BEAN_NAME = "DefaultKeyStoreProvider";
-    // public static final String DEFAULT_FILE_NAME = "geoserver.jceks";
-    // public static final String PREPARED_FILE_NAME = String.format("%s.new", DEFAULT_FILE_NAME);
 
     public static final String CONFIGPASSWORDKEY = "config:password:key";
     public static final String URLPARAMKEY = "url:param:key";
@@ -53,35 +51,41 @@ public class KeyStoreProviderImpl implements BeanNameAware, KeyStoreProvider {
     protected KeyStore ks;
 
     public static final String DEFAULT_KEYSTORETYPE = "JCEKS";
+    public static final String DEFAULT_SECRET_KEY_ALGORITHM = "PBE";
 
     protected String keyStoreType = DEFAULT_KEYSTORETYPE;
-    protected String keyStoreFilename = String.format("geoserver.%s", DEFAULT_KEYSTORETYPE.toLowerCase());;
+    protected String keyStoreFilename = String.format("geoserver.%s", DEFAULT_KEYSTORETYPE.toLowerCase());
+    protected String secretKeyAlgorithm = DEFAULT_SECRET_KEY_ALGORITHM;
 
     GeoServerSecurityManager securityManager;
 
     public KeyStoreProviderImpl() {}
 
-    @Override
     public String getKeyStoreType() {
         return keyStoreType;
     }
 
-    @Override
     public void setKeyStoreType(String keyStoreType) {
         this.keyStoreType = keyStoreType;
     }
 
-    @Override
     public String getKeyStoreFilename() {
         return keyStoreFilename;
     }
 
-    @Override
     public void setKeyStoreFilename(String keyStoreFilename) {
         this.keyStoreFilename = keyStoreFilename;
     }
 
-    public String getPreparedKeyStoreFilename() {
+    public String getSecretKeyAlgorithm() {
+        return secretKeyAlgorithm;
+    }
+
+    public void setSecretKeyAlgorithm(String secretKeyAlgorithm) {
+        this.secretKeyAlgorithm = secretKeyAlgorithm;
+    }
+
+    protected String getPreparedKeyStoreFilename() {
         return String.format("%s.new", getKeyStoreFilename());
     }
 
@@ -300,7 +304,7 @@ public class KeyStoreProviderImpl implements BeanNameAware, KeyStoreProvider {
     @Override
     public void setSecretKey(String alias, char[] key) throws IOException {
         assertActivatedKeyStore();
-        SecretKey mySecretKey = new SecretKeySpec(toBytes(key), "AES");
+        SecretKey mySecretKey = new SecretKeySpec(toBytes(key), getSecretKeyAlgorithm());
         KeyStore.SecretKeyEntry skEntry = new KeyStore.SecretKeyEntry(mySecretKey);
         char[] passwd = securityManager.getMasterPassword();
         try {
