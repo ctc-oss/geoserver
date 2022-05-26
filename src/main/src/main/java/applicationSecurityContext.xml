@@ -73,8 +73,12 @@
     
   <!--
   Extensions can inject another class implementing org.geoserver.security.KeyStoreProvider   
-  <bean id="keyStoreProvider" class="org.geoserver.security.KeyStoreProviderImpl" />
-   -->
+  -->
+  <bean id="keyStoreProvider" class="org.geoserver.security.KeyStoreProviderImpl">
+    <property name="keyStoreType" value="BCFKS"/>
+    <property name="keyStoreFilename" value="geoserver.bcfks"/>
+  </bean>
+   
    
   <bean id="roleConverter" class="org.geoserver.security.impl.GeoServerRoleConverterImpl" >  
   	<property name="roleDelimiterString" value=";" />
